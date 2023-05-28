@@ -10,4 +10,74 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model users
+model User {
+  id          String   @id
+  username    String   @unique
+  pwdhash     String
+  roleId      Int
+  createdDate DateTime
+}
+
+model Address {
+  id         Int    @id
+  name       String
+  street     String
+  number     Int
+  postalCode String
+  city       String
+  userId     String
+}
+
+model Product {
+  id           Int     @id
+  addedBy      String
+  name         String
+  description  String
+  price        Float
+  fastDelivery Boolean
+}
+
+model Rating {
+  id          Int      @id
+  rating      Int
+  comment     String
+  addedBy     String
+  productId   Int
+  createdDate DateTime
+}
+
+model Role {
+  id   Int    @id
+  name String
+}
+
+model Message {
+  id         Int      @id
+  fromUserId String
+  toUserId   String
+  title      String
+  content    String
+  dateSent   DateTime
+}
+
+model Complaint {
+  id       Int      @id
+  orderId  Int
+  content  String
+  dateSent DateTime
+}
+
+model Order {
+  id                Int      @id
+  userId            String
+  orderTime         DateTime
+  deliveryAddressId Int
+}
+
+model Report {
+  id           Int      @id
+  productId    Int
+  reportedBy   String
+  content      String
+  dateReported DateTime
+}

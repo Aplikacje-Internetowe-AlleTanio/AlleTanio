@@ -29,7 +29,7 @@ model Address {
 }
 
 model Product {
-  id           Int     @id
+  id           Int     @id @default(autoincrement())
   addedBy      String
   name         String
   description  String

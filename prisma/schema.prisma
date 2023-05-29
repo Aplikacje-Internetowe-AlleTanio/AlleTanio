@@ -19,7 +19,7 @@ model User {
 }
 
 model Address {
-  id         Int    @id
+  id         Int    @id @default(autoincrement())
   name       String
   street     String
   number     Int

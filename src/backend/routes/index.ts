@@ -1,6 +1,6 @@
 import express from 'express'
-import { getStatus } from './status/get.status'
-import { postUser } from './user/post.user'
+import getStatus from './status/get.status'
+import postUser from './user/post.user'
 import { postProduct } from './product/post.add_product'
 
 const router = express.Router()
@@ -14,8 +14,14 @@ router.get('/', (req, res) => {
     res.send('Example home page')
 })
 // api route
-router.get('/api/status', getStatus)
+const apiRoutes = [getStatus, postUser]
 
-router.post('/api/user', postUser)
-router.post('/api/product', postProduct)
+apiRoutes.forEach((route) =>
+    router[route.method](route.path, route.validators, route.handler),
+)
+
+//router.get('/api/status', getStatus)
+
+//router.post('/api/user', postUser)
+//router.post('/api/product', postProduct)
 export default router

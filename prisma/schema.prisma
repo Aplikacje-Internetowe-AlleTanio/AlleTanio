@@ -68,9 +68,9 @@ model Complaint {
 }
 
 model Order {
-  id                Int      @id
+  id                Int      @id @default(autoincrement())
   userId            String
-  orderTime         DateTime
+  orderTime         DateTime @default(now())
   deliveryAddressId Int
 }
 

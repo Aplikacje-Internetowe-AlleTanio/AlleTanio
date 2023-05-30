@@ -7,6 +7,7 @@ const SECRET = (process.env.TOKEN_SECRET as string) ?? 'XYZ'
 
 interface CustomRequest extends Request {
     userId?: string
+    userRoleId?: number
 }
 
 export const authorize = (
@@ -25,6 +26,7 @@ export const authorize = (
     } else {
         const decodedToken = jwt.decode(token) as JwtPayload
         req.userId = decodedToken.id as string
+        req.userRoleId = decodedToken.roleId as number
         next()
     }
 }

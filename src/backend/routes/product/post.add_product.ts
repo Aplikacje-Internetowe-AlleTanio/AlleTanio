@@ -1,31 +1,42 @@
-import { RequestHandler } from 'express'
+import { Request, Response } from 'express'
+import { body } from 'express-validator'
 import { StatusCodes } from 'http-status-codes'
-
 import { prisma } from '../../database'
-import { checkPrismaError } from '../../utils/prisma.utils'
+import { TRoute } from '../types'
+import { handleRequest } from '../../utils/request.utils'
 
-export const postProduct: RequestHandler = async (req, res) => {
-    const { addedBy, name, description, price, fastDelivery } = req.body
 
-    try {
-        const addedProduct = await prisma.product.create({
-            data: {
-                addedBy,
-                name,
-                description,
-                price,
-                fastDelivery,
+export default {
+    method: 'post',
+    path: '/api/add_product',
+    validators: [
+        body('addedBy').not().isEmpty(),
+        body('name').not().isEmpty(),
+        body('description').not().isEmpty(),
+        body('price').not().isEmpty(),
+        body('fastDelivery').not().isEmpty(),
+    ],
+    handler: async (req: Request, res: Response) =>
+        handleRequest({
+            req,
+            res,
+            responseSuccessStatus: StatusCodes.CREATED,
+            messages: {
+                uniqueConstraintFailed: 'Product name must be unique.',
             },
-        })
-
-        res.status(StatusCodes.CREATED)
-        res.send(addedProduct)
-    } catch (err) {
-        console.error(err)
-        const response = checkPrismaError(err, {
-            uniqueConstraintFailed: 'Product name must be unique.',
-        })
-        res.status(response.status)
-        res.send(response.message)
-    }
-}
+            execute: async () => {
+                const { addedBy, name, description, price, fastDelivery } = req.body
+				
+				
+                return await prisma.product.create({
+                    data: {
+                        addedBy,
+                        name,
+                        description,
+                        price,
+                        fastDelivery,
+                    },
+                })
+            },
+        }),
+} as TRoute

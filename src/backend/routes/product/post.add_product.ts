@@ -17,8 +17,8 @@ export default {
         authorize,
         body('name').not().isEmpty(),
         body('description').not().isEmpty(),
-        body('price').not().isEmpty(),
-        body('fastDelivery').not().isEmpty(),
+        body('price').not().isEmpty().isInt(),
+        body('fastDelivery').not().isEmpty().isBoolean(),
     ],
     handler: async (req: CustomRequest, res: Response) =>
         handleRequest({
@@ -30,8 +30,8 @@ export default {
             },
             execute: async () => {
                 const { name, description, price, fastDelivery } = req.body
-				const userId = req.userId
-				
+                const userId = req.userId
+
                 return await prisma.product.create({
                     data: {
                         addedBy: userId || undefined,

@@ -1,14 +1,13 @@
 import express from 'express'
 import getStatus from './status/get.status'
-
-import postUser from './user/post.user' //Rejestracja
-import loginUser from './user/login.user' //Logowanie
-
-import postAddress from './address/post.address' //Dodawanie adresów
-
-import postAddProduct from './product/post.add_product' //Dodawanie produktu
-import postOrder from './product/post.order' //Składanie zamówień
-
+import postUser from './user/post.user'
+import loginUser from './user/login.user'
+import postAddress from './address/post.address'
+import postAddProduct from './product/post.add_product'
+import postOrder from './product/post.order'
+import patchUserrole from './user/patch.userrole'
+import patchUser from './user/patch.user'
+import getProducts from './product/get.products'
 import postRate from './rate/post.rate' //Ocenianie produktu
 import getRating from './rate/get.rating' //Wyświetlanie ocen
 
@@ -23,7 +22,19 @@ router.get('/', (req, res) => {
     res.send('Example home page')
 })
 // api route
-const apiRoutes = [getStatus, postUser, loginUser, postAddress, postAddProduct, postOrder, postRate, getRating]
+const apiRoutes = [
+    getStatus,
+    postUser,
+    loginUser,
+    postAddress,
+    postAddProduct,
+    patchUserrole,
+    postOrder,
+    patchUser,
+    getProducts,
+    postRate,
+    getRating,
+]
 
 apiRoutes.forEach((route) =>
     router[route.method](route.path, route.validators, route.handler),

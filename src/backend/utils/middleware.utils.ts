@@ -7,6 +7,7 @@ const SECRET = (process.env.TOKEN_SECRET as string) ?? 'XYZ'
 
 interface CustomRequest extends Request {
     userId?: string
+    userRoleId?: number
 }
 
 export const authorize = (
@@ -19,12 +20,13 @@ export const authorize = (
     const result = verifyToken(parsedToken ?? '', SECRET)
 
     if (!token || !result.isValid) {
-        res.send(StatusCodes.UNAUTHORIZED).json({
+        res.status(StatusCodes.UNAUTHORIZED).json({
             errors: [ReasonPhrases.UNAUTHORIZED],
         })
     } else {
         const decodedToken = jwt.decode(token) as JwtPayload
         req.userId = decodedToken.id as string
+        req.userRoleId = decodedToken.roleId as number
         next()
     }
 }

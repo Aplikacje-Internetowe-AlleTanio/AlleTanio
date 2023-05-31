@@ -32,7 +32,7 @@ export default {
                 const userRoleId = req.userRoleId
                 console.log('id: ' + userRoleId)
                 if (userRoleId !== 1) {
-                    return StatusCodes.FORBIDDEN
+                    return res.sendStatus(StatusCodes.FORBIDDEN)
                 }
 
                 const user = await prisma.user.findUnique({
@@ -40,7 +40,7 @@ export default {
                 })
 
                 if (!user) {
-                    return StatusCodes.NOT_FOUND
+                    return res.sendStatus(StatusCodes.NOT_FOUND)
                 }
 
                 const updatedUser = await prisma.user.update({

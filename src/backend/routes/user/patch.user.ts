@@ -1,6 +1,6 @@
 import { Request as ExpressRequest, Response } from 'express'
 import { body } from 'express-validator'
-import { StatusCodes } from 'http-status-codes'
+import { ReasonPhrases, StatusCodes } from 'http-status-codes'
 import { prisma } from '../../database'
 import { TRoute } from '../types'
 import { handleRequest } from '../../utils/request.utils'
@@ -9,16 +9,15 @@ import { Console } from 'inspector'
 
 interface CustomRequest extends ExpressRequest {
     userId?: string
-    userRoleId?: number
 }
 
 export default {
     method: 'patch',
-    path: '/api/userrole',
+    path: '/api/user',
     validators: [
         authorize,
         body('username').not().isEmpty(),
-        body('roleId').not().isEmpty().isInt(),
+        body('newUsername').not().isEmpty(),
     ],
     handler: async (req: CustomRequest, res: Response) =>
         handleRequest({
@@ -27,25 +26,23 @@ export default {
             responseSuccessStatus: StatusCodes.OK,
             messages: {},
             execute: async () => {
-                const { username, roleId } = req.body
-
-                const userRoleId = req.userRoleId
-                console.log('id: ' + userRoleId)
-                if (userRoleId !== 1) {
-                    return StatusCodes.FORBIDDEN
-                }
+                const { username, newUsername } = req.body
 
                 const user = await prisma.user.findUnique({
                     where: { username },
                 })
 
                 if (!user) {
-                    return StatusCodes.NOT_FOUND
+                    return res.sendStatus(StatusCodes.NOT_FOUND)
+                }
+
+                if (user.id != req.userId) {
+                    return res.sendStatus(StatusCodes.FORBIDDEN)
                 }
 
                 const updatedUser = await prisma.user.update({
                     where: { id: user.id },
-                    data: { roleId },
+                    data: { username: newUsername },
                 })
 
                 return updatedUser

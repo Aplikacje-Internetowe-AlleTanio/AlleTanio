@@ -6,8 +6,7 @@ import postAddress from './address/post.address'
 import postAddProduct from './product/post.add_product'
 import postOrder from './product/post.order'
 import patchUserrole from './user/patch.userrole'
-
-
+import patchUser from './user/patch.user'
 
 const router = express.Router()
 // middleware
@@ -28,6 +27,7 @@ const apiRoutes = [
     postAddProduct,
     patchUserrole,
     postOrder,
+    patchUser,
 ]
 
 apiRoutes.forEach((route) =>

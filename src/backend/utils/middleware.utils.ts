@@ -20,7 +20,7 @@ export const authorize = (
     const result = verifyToken(parsedToken ?? '', SECRET)
 
     if (!token || !result.isValid) {
-        res.send(StatusCodes.UNAUTHORIZED).json({
+        res.status(StatusCodes.UNAUTHORIZED).json({
             errors: [ReasonPhrases.UNAUTHORIZED],
         })
     } else {

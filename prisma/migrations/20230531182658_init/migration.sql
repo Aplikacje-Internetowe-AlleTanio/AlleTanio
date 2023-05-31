@@ -35,7 +35,7 @@ CREATE TABLE "Rating" (
     "comment" TEXT NOT NULL,
     "addedBy" TEXT NOT NULL,
     "productId" INTEGER NOT NULL,
-    "createdDate" DATETIME NOT NULL
+    "createdDate" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 -- CreateTable

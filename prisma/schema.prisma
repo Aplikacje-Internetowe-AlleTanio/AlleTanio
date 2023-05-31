@@ -38,12 +38,12 @@ model Product {
 }
 
 model Rating {
-  id          Int      @id
+  id          Int      @id @default(autoincrement())
   rating      Int
   comment     String
   addedBy     String
   productId   Int
-  createdDate DateTime
+  createdDate DateTime @default(now())
 }
 
 model Role {

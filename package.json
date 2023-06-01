@@ -28,7 +28,10 @@
     "typescript": "^5.0.4"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "be-start": "node dist/backend/index.js",
+    "be-build": "tsc -p tsconfig.json",
+    "be-dev": "npx ts-node src/backend/index.ts"
   },
   "dependencies": {
     "@prisma/client": "^4.14.1",

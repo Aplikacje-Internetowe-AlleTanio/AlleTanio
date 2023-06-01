@@ -31,11 +31,7 @@ export default {
                     ? user.pwdhash === passwordHash
                     : false
                 if (!user || !passwordValid)
-                    throw {
-                        status: StatusCodes.UNAUTHORIZED,
-                        message: ReasonPhrases.UNAUTHORIZED,
-                        isCustomError: true,
-                    } as TCustomError
+                    return res.sendStatus(StatusCodes.UNAUTHORIZED)
                 return {
                     token: createToken(user, SECRET, '7d'),
                 }

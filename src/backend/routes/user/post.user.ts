@@ -2,10 +2,12 @@ import { Request, Response } from 'express'
 import { body } from 'express-validator'
 import { StatusCodes } from 'http-status-codes'
 import { v4 } from 'uuid'
+import { Prisma } from '@prisma/client' // Import PrismaClientKnownRequestError
 import { prisma } from '../../database'
 import { TRoute } from '../types'
 import { handleRequest } from '../../utils/request.utils'
 import { createHash } from '../../utils/hash.utils'
+
 const SALT = (process.env.PASSWORD_SALT as string) ?? 'XYZ'
 export default {
     method: 'post',
@@ -26,15 +28,28 @@ export default {
                 const { username, pwdhash } = req.body
                 const passwordHash = createHash(pwdhash, SALT)
 
-                return await prisma.user.create({
-                    data: {
-                        id: v4(),
-                        username,
-                        pwdhash: passwordHash,
-                        createdDate: new Date(),
-                        roleId: 1,
-                    },
-                })
+                try {
+                    return await prisma.user.create({
+                        data: {
+                            id: v4(),
+                            username,
+                            pwdhash: passwordHash,
+                            createdDate: new Date(),
+                            roleId: 1,
+                        },
+                    })
+                } catch (error) {
+                    if (
+                        error instanceof Prisma.PrismaClientKnownRequestError &&
+                        error.code === 'P2002'
+                    ) {
+                        // Obsługa błędu naruszenia unikalności
+                        return res
+                            .status(StatusCodes.CONFLICT)
+                            .send({ message: 'Username must be unique.' })
+                    }
+                    throw error // Przekaż pozostałe błędy dalej
+                }
             },
         }),
 } as TRoute

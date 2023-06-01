@@ -17,3 +17,4 @@ sorter.js
 database.ts.html
 hash.utils.ts.html
 jwt.utils.ts.html
+middleware.utils.ts.html

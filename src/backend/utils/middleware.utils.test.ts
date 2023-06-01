@@ -21,7 +21,7 @@ describe('Authorization Middleware', () => {
     });
 
     it('should return UNAUTHORIZED if no token is provided', () => {
-        mockRequest.headers = {}; // Add headers object to mockRequest
+        mockRequest.headers = {};
         authorize(mockRequest, mockResponse, mockNext);
 
         expect(mockResponse.status).toHaveBeenCalledWith(StatusCodes.UNAUTHORIZED);
@@ -36,7 +36,7 @@ describe('Authorization Middleware', () => {
         mockRequest.headers = {
             authorization: `Bearer ${invalidToken}`,
         };
-        (verifyToken as jest.Mock).mockReturnValue({ isValid: false }); // Mock verifyToken to return invalid result
+        (verifyToken as jest.Mock).mockReturnValue({ isValid: false });
 
         authorize(mockRequest, mockResponse, mockNext);
 

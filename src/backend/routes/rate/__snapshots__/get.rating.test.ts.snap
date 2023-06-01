@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`get.rating should handle the request and return ratings for the given product 1`] = `
+[MockFunction] {
+  "calls": [
+    [
+      {
+        "data": undefined,
+      },
+    ],
+  ],
+  "results": [
+    {
+      "type": "return",
+      "value": undefined,
+    },
+  ],
+}
+`;

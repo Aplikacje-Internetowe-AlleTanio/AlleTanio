@@ -19,3 +19,4 @@ hash.utils.ts.html
 jwt.utils.ts.html
 middleware.utils.ts.html
 request.utils.ts.html
+post.rate.ts.html

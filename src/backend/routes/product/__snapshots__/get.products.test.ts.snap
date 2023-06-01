@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`get.products should handle the request and return products based on filters 1`] = `
+[MockFunction] {
+  "calls": [
+    [
+      {
+        "data": undefined,
+      },
+    ],
+  ],
+  "results": [
+    {
+      "type": "return",
+      "value": undefined,
+    },
+  ],
+}
+`;

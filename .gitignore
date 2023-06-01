@@ -14,11 +14,4 @@ prettify.css
 prettify.js
 sort-arrow-sprite.png
 sorter.js
-database.ts.html
-hash.utils.ts.html
-jwt.utils.ts.html
-middleware.utils.ts.html
-request.utils.ts.html
-post.rate.ts.html
-get.rating.ts.html
-post.address.ts.html
+*ts.html

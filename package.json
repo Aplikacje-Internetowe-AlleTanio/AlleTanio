@@ -29,7 +29,13 @@
   },
   "scripts": {
     "test": "jest",
+<<<<<<< HEAD
     "be-dev": "npx nodemon src/backend/index.ts"
+=======
+    "be-start": "node dist/backend/index.js",
+    "be-build": "tsc -p tsconfig.json",
+    "be-dev": "npx ts-node src/backend/index.ts"
+>>>>>>> d5fdb86bf966f451cd65c53b3ee766d94bbefcb5
   },
   "dependencies": {
     "@prisma/client": "^4.15.0",

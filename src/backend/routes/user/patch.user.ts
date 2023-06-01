@@ -1,11 +1,10 @@
 import { Request as ExpressRequest, Response } from 'express'
 import { body } from 'express-validator'
-import { ReasonPhrases, StatusCodes } from 'http-status-codes'
+import { StatusCodes } from 'http-status-codes'
 import { prisma } from '../../database'
 import { TRoute } from '../types'
 import { handleRequest } from '../../utils/request.utils'
 import { authorize } from '../../utils/middleware.utils'
-import { Console } from 'inspector'
 
 interface CustomRequest extends ExpressRequest {
     userId?: string

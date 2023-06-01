@@ -17,7 +17,7 @@ export default {
         authorize,
         body('name').not().isEmpty(),
         body('description').not().isEmpty(),
-        body('price').not().isEmpty().isInt(),
+        body('price').not().isEmpty().isFloat(),
         body('fastDelivery').not().isEmpty().isBoolean(),
     ],
     handler: async (req: CustomRequest, res: Response) =>

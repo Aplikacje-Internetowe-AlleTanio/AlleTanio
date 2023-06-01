@@ -2,3 +2,16 @@
 /dist
 .env
 yarn-error.log
+base.css
+block-navigation.js
+clover.xml
+coverage-final.json
+favicon.png
+get.status.ts.html
+index.html
+lcov.info
+prettify.css
+prettify.js
+sort-arrow-sprite.png
+sorter.js
+*ts.html

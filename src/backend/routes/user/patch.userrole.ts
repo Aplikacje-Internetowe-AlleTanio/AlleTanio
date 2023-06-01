@@ -5,7 +5,6 @@ import { prisma } from '../../database'
 import { TRoute } from '../types'
 import { handleRequest } from '../../utils/request.utils'
 import { authorize } from '../../utils/middleware.utils'
-import { Console } from 'inspector'
 
 interface CustomRequest extends ExpressRequest {
     userId?: string

@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`post.address should handle the request and create a new address 1`] = `
+[MockFunction] {
+  "calls": [
+    [
+      {
+        "data": undefined,
+      },
+    ],
+  ],
+  "results": [
+    {
+      "type": "return",
+      "value": undefined,
+    },
+  ],
+}
+`;

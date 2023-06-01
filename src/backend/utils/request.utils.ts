@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import { validationResult } from 'express-validator'
 import { StatusCodes } from 'http-status-codes'
-import { checkPrismaError, TPrismaErrorDescriptions } from './prisma.utils'
+import { TPrismaErrorDescriptions } from './prisma.utils'
 export type TRequestData<Entity> = {
     req: Request
     res: Response
@@ -21,7 +21,6 @@ export const handleRequest = async <Entity>({
     execute,
     responseSuccessStatus,
     responseFailStatus,
-    messages,
 }: TRequestData<Entity>) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {

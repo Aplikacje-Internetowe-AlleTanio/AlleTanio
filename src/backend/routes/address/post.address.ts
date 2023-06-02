@@ -15,11 +15,23 @@ export default {
     path: '/api/address',
     validators: [
         authorize,
-        body('name').not().isEmpty(),
-        body('street').not().isEmpty(),
+        body('name')
+            .not()
+            .isEmpty()
+            .custom((value) => typeof value === 'string'),
+        body('street')
+            .not()
+            .isEmpty()
+            .custom((value) => typeof value === 'string'),
         body('number').not().isEmpty().isInt(),
-        body('postalCode').not().isEmpty(),
-        body('city').not().isEmpty(),
+        body('postalCode')
+            .not()
+            .isEmpty()
+            .custom((value) => typeof value === 'string'),
+        body('city')
+            .not()
+            .isEmpty()
+            .custom((value) => typeof value === 'string'),
     ],
     handler: async (req: CustomRequest, res: Response) =>
         handleRequest({

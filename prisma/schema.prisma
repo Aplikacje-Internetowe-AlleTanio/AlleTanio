@@ -46,11 +46,6 @@ model Rating {
   createdDate DateTime @default(now())
 }
 
-model Role {
-  id   Int    @id
-  name String
-}
-
 model Message {
   id         Int      @id @default(autoincrement())
   fromUserId String

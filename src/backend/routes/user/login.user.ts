@@ -12,8 +12,8 @@ export default {
     method: 'get',
     path: '/api/login',
     validators: [
-        body('username').not().isEmpty(),
-        body('pwdhash').not().isEmpty(),
+        body('username').not().isEmpty().custom((value) => typeof value === 'string'),
+        body('pwdhash').not().isEmpty().custom((value) => typeof value === 'string'),
     ],
     handler: async (req: Request, res: Response) =>
         handleRequest({

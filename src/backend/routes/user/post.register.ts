@@ -11,10 +11,16 @@ import { createHash } from '../../utils/hash.utils'
 const SALT = (process.env.PASSWORD_SALT as string) ?? 'XYZ'
 export default {
     method: 'post',
-    path: '/api/user',
+    path: '/api/register',
     validators: [
-        body('username').not().isEmpty(),
-        body('pwdhash').not().isEmpty(),
+        body('username')
+            .not()
+            .isEmpty()
+            .custom((value) => typeof value === 'string'),
+        body('pwdhash')
+            .not()
+            .isEmpty()
+            .custom((value) => typeof value === 'string'),
     ],
     handler: async (req: Request, res: Response) =>
         handleRequest({

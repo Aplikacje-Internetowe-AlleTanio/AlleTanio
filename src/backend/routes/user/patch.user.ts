@@ -15,8 +15,14 @@ export default {
     path: '/api/user',
     validators: [
         authorize,
-        body('username').not().isEmpty(),
-        body('newUsername').not().isEmpty(),
+        body('username')
+            .not()
+            .isEmpty()
+            .custom((value) => typeof value === 'string'),
+        body('newUsername')
+            .not()
+            .isEmpty()
+            .custom((value) => typeof value === 'string'),
     ],
     handler: async (req: CustomRequest, res: Response) =>
         handleRequest({

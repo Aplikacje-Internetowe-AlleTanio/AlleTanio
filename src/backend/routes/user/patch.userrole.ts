@@ -16,7 +16,10 @@ export default {
     path: '/api/userrole',
     validators: [
         authorize,
-        body('username').not().isEmpty(),
+        body('username')
+            .not()
+            .isEmpty()
+            .custom((value) => typeof value === 'string'),
         body('roleId').not().isEmpty().isInt(),
     ],
     handler: async (req: CustomRequest, res: Response) =>

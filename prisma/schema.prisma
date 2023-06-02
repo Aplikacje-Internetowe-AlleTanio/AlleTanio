@@ -52,12 +52,12 @@ model Role {
 }
 
 model Message {
-  id         Int      @id
+  id         Int      @id @default(autoincrement())
   fromUserId String
   toUserId   String
   title      String
   content    String
-  dateSent   DateTime
+  dateSent   DateTime @default(now())
 }
 
 model Complaint {

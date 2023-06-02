@@ -43,12 +43,11 @@ export default {
                         error instanceof Prisma.PrismaClientKnownRequestError &&
                         error.code === 'P2002'
                     ) {
-                        // Obsługa błędu naruszenia unikalności
                         return res
                             .status(StatusCodes.CONFLICT)
                             .send({ message: 'Username must be unique.' })
                     }
-                    throw error // Przekaż pozostałe błędy dalej
+                    throw error
                 }
             },
         }),

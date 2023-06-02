@@ -1,6 +1,6 @@
 import express from 'express'
 import getStatus from './status/get.status'
-import postUser from './user/post.user'
+import postUser from './user/post.register'
 import loginUser from './user/login.user'
 import postAddress from './address/post.address'
 import postAddProduct from './product/post.add_product'
@@ -12,6 +12,7 @@ import postRate from './rate/post.rate' //Ocenianie produktu
 import getRating from './rate/get.rating' //Wyświetlanie ocen
 import postSend_message from './messages/post.send_message'
 import getMessages from './messages/get.messages'
+import postRegister from './user/post.register'
 
 const router = express.Router()
 // middleware
@@ -26,7 +27,7 @@ router.get('/', (req, res) => {
 // api route
 const apiRoutes = [
     getStatus,
-    postUser,
+    postRegister,
     loginUser,
     postAddress,
     postAddProduct,
@@ -37,7 +38,7 @@ const apiRoutes = [
     postRate,
     getRating,
     postSend_message,
-    getMessages    
+    getMessages,
 ]
 
 apiRoutes.forEach((route) =>

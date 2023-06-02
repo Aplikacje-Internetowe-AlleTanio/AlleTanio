@@ -1,6 +1,5 @@
 import express from 'express'
 import getStatus from './status/get.status'
-import postUser from './user/post.register'
 import loginUser from './user/login.user'
 import postAddress from './address/post.address'
 import postAddProduct from './product/post.add_product'

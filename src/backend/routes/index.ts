@@ -16,6 +16,7 @@ import postSendComplaint from './complaints/post.send.complaint'
 import postSendMessage from './messages/post.send.message'
 import getComplaints from './complaints/get.complaints'
 import patchGrantComplaint from './complaints/patch.grant.complaint'
+import postReport from './reports/post.report'
 
 const router = express.Router()
 // middleware
@@ -45,7 +46,8 @@ const apiRoutes = [
     getUsers,
     postSendComplaint,
     getComplaints,
-    patchGrantComplaint
+    patchGrantComplaint,
+    postReport
 ]
 
 apiRoutes.forEach((route) =>

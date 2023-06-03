@@ -72,9 +72,9 @@ model Order {
 }
 
 model Report {
-  id           Int      @id
+  id           Int            @id @default(autoincrement())
   productId    Int
   reportedBy   String
   content      String
-  dateReported DateTime
+  dateReported DateTime       @default(now())
 }

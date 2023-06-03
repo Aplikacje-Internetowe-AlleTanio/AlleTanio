@@ -11,7 +11,7 @@ interface CustomRequest extends ExpressRequest {
 
 export default {
     method: 'patch',
-    path: '/api/complaints/:complaintId',
+    path: '/api/complaints/:complaintId/grant',
     validators: [authorize],
     handler: async (req: CustomRequest, res: Response) =>
         handleRequest({
@@ -35,7 +35,7 @@ export default {
 
                 return await prisma.complaint.update({
                     where: {
-                        id: complaintId
+                        id: parseInt(complaintId)
                     },
                     data: {
                         refund: true

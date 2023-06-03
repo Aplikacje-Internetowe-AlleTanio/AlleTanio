@@ -20,6 +20,7 @@ export default {
         body('pwdhash')
             .not()
             .isEmpty()
+            .matches(/(?=.*[A-Za-z])(?=.*\d).{8,}/)
             .custom((value) => typeof value === 'string'),
     ],
     handler: async (req: Request, res: Response) =>

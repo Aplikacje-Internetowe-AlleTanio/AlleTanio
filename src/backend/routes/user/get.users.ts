@@ -4,6 +4,7 @@ import { handleRequest } from "../../utils/request.utils";
 import { StatusCodes } from "http-status-codes";
 import { prisma } from "../../database";
 import { TRoute } from "../types";
+import { User } from "@prisma/client";
 
 interface CustomRequest extends ExpressRequest {
     userId?: string
@@ -11,26 +12,21 @@ interface CustomRequest extends ExpressRequest {
 
 export default {
     method: 'get',
-    path: '/api/searchuser',
+    path: '/api/users',
     validators: [authorize],
     handler: async (req: CustomRequest, res: Response) =>
-        handleRequest({
+        handleRequest<User[]>({
             req,
             res,
             responseSuccessStatus: StatusCodes.OK,
             execute: async () => {
-                const query = req.query
-
-                if (!query) {
-                    return  res.status(StatusCodes.BAD_REQUEST)
-                                .json({ error: "Query parameter 'username' required." })
-                }
+                const { query } = req.body
 
                 const users = await prisma.user.findMany({
                     where: {
-                        username: { contains: query.toString() }
+                        username: query ? { contains: query.toString() } : undefined
                     }
-                }) as any
+                })
 
                 return users
             }

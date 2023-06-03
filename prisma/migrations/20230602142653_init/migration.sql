@@ -39,19 +39,13 @@ CREATE TABLE "Rating" (
 );
 
 -- CreateTable
-CREATE TABLE "Role" (
-    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    "name" TEXT NOT NULL
-);
-
--- CreateTable
 CREATE TABLE "Message" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "fromUserId" TEXT NOT NULL,
     "toUserId" TEXT NOT NULL,
     "title" TEXT NOT NULL,
     "content" TEXT NOT NULL,
-    "dateSent" DATETIME NOT NULL
+    "dateSent" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 -- CreateTable

@@ -36,7 +36,7 @@ export default {
             responseSuccessStatus: StatusCodes.OK,
             execute: async () => {
                 const { recipient, title, content } = req.body
-                const userId = req.userId
+                const fromUserId = req.userId
                 const toUserId = await GetUserByName(recipient)
 
                 if (!toUserId) {
@@ -46,7 +46,7 @@ export default {
 
                 return await prisma.message.create({
                     data: {
-                        userId,
+                        fromUserId,
                         toUserId,
                         title,
                         content,

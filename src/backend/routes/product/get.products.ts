@@ -1,46 +1,78 @@
-import { Request, Response } from 'express'
-import { query } from 'express-validator'
-import { prisma } from '../../database'
-import { TRoute } from '../types'
-import { handleRequest } from '../../utils/request.utils'
-import { authorize } from '../../utils/middleware.utils'
+import { Request, Response } from 'express';
+import { query } from 'express-validator';
+import axios from 'axios';
+import { prisma } from '../../database';
+import { TRoute } from '../types';
+import { handleRequest } from '../../utils/request.utils';
+import { authorize } from '../../utils/middleware.utils';
 
 export default {
     method: 'get',
     path: '/api/products',
     validators: [
         authorize,
-        query('name').optional().not().isEmpty(),
+        query('name').optional().notEmpty(),
         query('fastDelivery').optional().isBoolean(),
         query('price').optional().isNumeric(),
+        query('category').optional().notEmpty(),
     ],
     handler: async (req: Request, res: Response) =>
         handleRequest({
             req,
             res,
             execute: async () => {
-                const { name, fastDelivery, price } = req.query
+                const { name, fastDelivery, price, category } = req.query;
 
-                let filters = {}
+                let filters: any = {};
 
                 if (name) {
-                    filters = { ...filters, name: String(name) }
+                    filters.name = String(name);
                 }
 
-                if (fastDelivery !== undefined) {
-                    filters = {
-                        ...filters,
-                        fastDelivery: Boolean(fastDelivery),
-                    }
+                if (fastDelivery) {
+                    filters.fastDelivery = Boolean(fastDelivery);
                 }
 
                 if (price) {
-                    filters = { ...filters, price: Number(price) }
+                    filters.price = Number(price);
                 }
 
-                return await prisma.product.findMany({
+                if (category) {
+                    filters.category = String(category);
+                }
+
+                const { data } = await axios.get(
+                    'https://api.open-meteo.com/v1/forecast?latitude=52.45&longitude=16.92&hourly=rain&current_weather=true&forecast_days=1'
+                );
+
+                const currentWeather = data.current_weather;
+                const weatherCode = currentWeather.weathercode;
+
+                let products = await prisma.product.findMany({
                     where: filters,
-                })
+                });
+
+                if ([61, 63, 65].includes(weatherCode)) {
+                    console.log(weatherCode + ' - Pada');
+                    products = products.map((product: any) => {
+                        if (product.category === 'na_deszcz') {
+                            const increasedPrice = product.price * 1.1; // Zwiększenie ceny o 10%
+                            return { ...product, price: increasedPrice };
+                        }
+                        return product;
+                    });
+                } else {
+                    console.log(weatherCode + 'Nie pada');
+                    products = products.map((product: any) => {
+                        if (product.category === 'na_slonce') {
+                            const increasedPrice = product.price * 1.1;
+                            return { ...product, price: increasedPrice };
+                        }
+                        return product;
+                    });
+                }
+
+                return products;
             },
         }),
-} as TRoute
+} as TRoute;

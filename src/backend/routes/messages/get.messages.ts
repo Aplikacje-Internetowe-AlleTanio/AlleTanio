@@ -4,6 +4,7 @@ import { authorize } from '../../utils/middleware.utils'
 import { TRoute } from '../types'
 import { prisma } from '../../database'
 import { StatusCodes } from 'http-status-codes'
+import { Message } from '@prisma/client';
 
 interface CustomRequest extends ExpressRequest {
     userId?: string
@@ -14,7 +15,7 @@ export default {
     path: '/api/messages',
     validators: [authorize],
     handler: async (req: CustomRequest, res: Response) =>
-        handleRequest({
+        handleRequest<Message[]>({
             req,
             res,
             responseSuccessStatus: StatusCodes.OK,

@@ -9,10 +9,12 @@ import patchUser from './user/patch.user'
 import getProducts from './product/get.products'
 import postRate from './rate/post.rate' //Ocenianie produktu
 import getRating from './rate/get.rating' //Wyświetlanie ocen
-import postSend_message from './messages/post.send_message'
 import getMessages from './messages/get.messages'
 import postRegister from './user/post.register'
 import getUsers from './user/get.users'
+import postSendComplaint from './complaints/post.send.complaint'
+import postSendMessage from './messages/post.send.message'
+import getComplaints from './complaints/get.complaints'
 
 const router = express.Router()
 // middleware
@@ -37,9 +39,11 @@ const apiRoutes = [
     getProducts,
     postRate,
     getRating,
-    postSend_message,
+    postSendMessage,
     getMessages,
-    getUsers
+    getUsers,
+    postSendComplaint,
+    getComplaints
 ]
 
 apiRoutes.forEach((route) =>

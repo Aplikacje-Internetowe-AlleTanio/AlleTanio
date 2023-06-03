@@ -19,6 +19,8 @@ export default {
         body('description').not().isEmpty(),
         body('price').not().isEmpty().isFloat(),
         body('fastDelivery').not().isEmpty().isBoolean(),
+        body('category').isString(),
+
     ],
     handler: async (req: CustomRequest, res: Response) =>
         handleRequest({
@@ -29,7 +31,7 @@ export default {
                 uniqueConstraintFailed: 'Product name must be unique.',
             },
             execute: async () => {
-                const { name, description, price, fastDelivery } = req.body
+                const { name, description, price, fastDelivery, category } = req.body
                 const userId = req.userId
 
                 return await prisma.product.create({
@@ -39,6 +41,7 @@ export default {
                         description,
                         price,
                         fastDelivery,
+                        category
                     } as any,
                 })
             },

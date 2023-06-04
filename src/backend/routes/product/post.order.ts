@@ -26,7 +26,7 @@ export default {
                 uniqueConstraintFailed: 'Order creation failed.',
             },
             execute: async () => {
-                const { deliveryAddressId } = req.body;
+                const { deliveryAddressId, productId } = req.body;
                 const userId = req.userId
 
                 const deliveryAddress = await prisma.address.findUnique({
@@ -46,6 +46,7 @@ export default {
                     data: {
                         userId: userId || undefined,
                         deliveryAddressId,
+                        productId,
                     } as any,
                 });
                 return order;
